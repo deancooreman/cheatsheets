@@ -37,7 +37,15 @@
 | `service password-encryption` | Encrypts all set passwords | Global Configuration Mode |
 | `banner motd` [\$message\$] | Configure a banner | Global Configuration Mode |
 
-# Show commands
+# Troubleshooting commands
+
+Output filter can be used in combination with any show command.
+To enable the filter command, enter a pipe (|) after the show command folowed by a filtering parameter
+Filtering parameters:
+- `section` Displays the entire section that starts with the filtering expression
+- `include` Includes all output lines that match the filtering expression
+- `exclude` Excludes all output lines that match the filtering expression
+- `begin` Displays all the output lines from a certain point, starting with the line that matches the filtering expression
 
 | Command | Description | Mode |
 | ---   | --- | --- |
@@ -56,6 +64,11 @@
 | `show ipv6 route` | Content of the IPv6 routing table | Privileged EXEC Mode |
 | `show boot` | Current settings of the IOS startup file | Privileged EXEC Mode |
 | `show controllers ethernet-controller phy` | Controls duplex, speed and auto-MDIX settings | Privileged EXEC Mode |
+| `show cdp neighbours` | List of directly connected Cisco devices |
+| `traceroute` [IP address] | Verify path to destination network | Privileged EXEC Mode |
+| `ping` [IP address] | Verify layer 3 connectivity to destination | Privileged EXEC Mode |
+
+
 
 # System management and boot settings
 
@@ -89,3 +102,19 @@
 | ---   | --- | --- |
 | `interface loopback` [number] | Creates and accesses a loopback interface | Global Configuration Mode |
 | `ip address` [ip-address] [subnet-mask] | Assign a IPv4 address to the loopback interface | Interface Configuration Mode |
+
+# Routing
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ip route` [destination IPv4 network] [subnet-mask] [next hop IPv4 address] [distance] | Next-hop IPv4 static route | Global Configuration Mode |
+| `ip route` [destination IPv4 network] [subnet-mask] [exit interface] [distance] | Directly connected IPv4 static route | Global Configuration Mode |
+| `ip route` [destination IPv4 network] [subnet-mask] [exit interface] [next hop IPv4 address] [distance] | Fully specified IPv4 static route | Global Configuration Mode |
+| `ipv6 route` [destination IPv6 network prefix length] [next hop IPv6 addres] [distance] | Next-hop IPv6 static route | Global Configuration Mode |
+| `ipv6 route` [destination IPv6 network prefix length] [exit interface] [distance] | Directly connected IPv6 static route | Global Configuration Mode |
+| `ipv6 route` [destination IPv6 network prefix length] [exit interface] [next hop IPv6 addres] [distance] | Fully specified IPv6 static route | Global Configuration Mode |
+| `ip route 0.0.0.0 0.0.0.0` [next-hop IPv4 address / exit interface] | Default static IPv4 route | Global Configuration Mode |
+| `ipv6 route ::/0` [next-hop IPv6 addres / exit interface] | Default static IPv6 route | Global Configuration Mode |
+| `ip route` [destination host adress] [255.255.255.255] [next hop IPv4 address / exit interface] [distance] | IPv4 static host route | Global Configuration Mode |
+| `ipv6 route` [destination IPv6 address with /128 prefix] [exit interface / next hop IPv6 addres] [distance] | IPv6 static host route | Global Configuration Mode |
+
