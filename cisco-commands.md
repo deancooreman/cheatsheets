@@ -64,7 +64,7 @@ Filtering parameters:
 | `show ipv6 route` | Content of the IPv6 routing table | Privileged EXEC Mode |
 | `show boot` | Current settings of the IOS startup file | Privileged EXEC Mode |
 | `show controllers ethernet-controller phy` | Controls duplex, speed and auto-MDIX settings | Privileged EXEC Mode |
-| `show cdp neighbours` | List of directly connected Cisco devices |
+| `show cdp neighbours` | List of directly connected Cisco devices | Privileged EXEC Mode |
 | `traceroute` [IP address] | Verify path to destination network | Privileged EXEC Mode |
 | `ping` [IP address] | Verify layer 3 connectivity to destination | Privileged EXEC Mode |
 
