@@ -118,3 +118,64 @@ Filtering parameters:
 | `ip route` [destination host adress] [255.255.255.255] [next hop IPv4 address / exit interface] [distance] | IPv4 static host route | Global Configuration Mode |
 | `ipv6 route` [destination IPv6 address with /128 prefix] [exit interface / next hop IPv6 addres] [distance] | IPv6 static host route | Global Configuration Mode |
 
+# VLAN
+
+## VLAN configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `vlan` [vlan-id] | Create a VLAN with a valid ID number | Global Configuration Mode |
+| `no vlan` [vlan-id] | Delete VLAN | Global Configuration Mode |
+| `name` [vlan-name] | Give the VLAN a name | VLAN Configuration Mode |
+| `switchport mode acces` | Set interface port to acces mode | Interface Configuration Mode |
+| `switchport acces vlan` [vlan-id] | Assign the interface port to a VLAN | Interface Configuration Mode |
+| `no switchport acces vlan` | Assign the interface port back to VLAN 1 | Interface Configuration Mode |
+| `delete vlan.dat` | Delete all VLANs. Reload the switch after doing this | Privileged EXEC MODE |
+
+### Example
+
+`configure terminal`, `interface fa0/18`, `switchport mode acces`, `switchport acces vlan 20`, `end`
+
+## Trunk configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `switchport mode trunk` | Set the port to permanent trunking mode | Interface Configuration Mode |
+| `switchport trunk native vlan` [vlan-id] | Set the native VLAN to something other than VLAN 1 | Interface Configuration Mode |
+| `no switchport trunk native vlan` | Reset the native VLAN to 1 | Interface Configuration Mode |
+| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link |
+| `no switchport trunk allowed vlan` | Reset to default |
+| `switchport mode acces` | RESET interface port to acces mode (default) | Interface Configuration Mode |
+| `switchport mode dynamic auto` | Interface will become trunk if the neighboring interface is set to trunk or desirable mode | Interface Configuration Mode |
+| `switchport mode dynamic desirable` | Actively seeks to become a trunk by negotiating with other auto or desirable interfaces | Interface Configuration Mode |
+
+### Example
+
+`configure terminal`, `interface fa0/1`, `switchport mode trunk`, `switchport trunk native vlan 99`, `switchport trunk allowed vlan 10,20,30,99`, `end`
+
+## Router configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `interface` [interface id].[subinterface id] | Create a subinterface | Global Configuration mode |
+| `description` | Gives the subinterface a description | Sub interface configuration mode |
+| `encapsulation dot1q` [vlan id] | Configures the subinterface to respond to 802.1Q traffic | Sub interface configuration mode |
+| `encapsulation dot1q` [vlan id] [native] | Set the vlan to something other then 1 | Sub interface configuration mode |
+| `ip address` [ip-address] [subnet-mask] | Gives the subinterface a IPv4 adress |Sub interface configuration mode |
+
+### Example
+
+`configure terminal`, `interface G0/0/1.10`, `description default gateway for VLAN 10`, `encapsulation dot1q 10`, `ip address 192.168.10.1 255.255.255.0`, `exit`
+
+
+## Troubleshooting
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show vlan brief` | Display VLAN name, and its ports one VLAN per line | Privileged EXEC Mode |
+| `show vlan id` [vlan-id] | Display information about the specified VLAN | Privileged EXEC Mode |
+| `show vlan name` [vlan-name] | Display information about the specified VLAN | Privileged EXEC Mode |
+| `show vlan summary` | Display VLAN summary information | Privileged EXEC Mode |
+| `show interface [interface] switchport` | Shows port modus and assigned vlans | Privileged EXEC Mode |
+| `show dtp interface` [interface] | Show the current DTP mode | Privileged EXEC Mode |
+| `show interfaces trunk` | Shows all trunk connections | Privileged EXEC Mode |
