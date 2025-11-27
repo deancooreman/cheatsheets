@@ -143,8 +143,8 @@ Filtering parameters:
 | `switchport mode trunk` | Set the port to permanent trunking mode | Interface Configuration Mode |
 | `switchport trunk native vlan` [vlan-id] | Set the native VLAN to something other than VLAN 1 | Interface Configuration Mode |
 | `no switchport trunk native vlan` | Reset the native VLAN to 1 | Interface Configuration Mode |
-| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link |
-| `no switchport trunk allowed vlan` | Reset to default |
+| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link | Interface Configuration Mode |
+| `no switchport trunk allowed vlan` | Reset to default | Interface Configuration Mode |
 | `switchport mode acces` | RESET interface port to acces mode (default) | Interface Configuration Mode |
 | `switchport mode dynamic auto` | Interface will become trunk if the neighboring interface is set to trunk or desirable mode | Interface Configuration Mode |
 | `switchport mode dynamic desirable` | Actively seeks to become a trunk by negotiating with other auto or desirable interfaces | Interface Configuration Mode |
@@ -179,3 +179,20 @@ Filtering parameters:
 | `show interface [interface] switchport` | Shows port modus and assigned vlans | Privileged EXEC Mode |
 | `show dtp interface` [interface] | Show the current DTP mode | Privileged EXEC Mode |
 | `show interfaces trunk` | Shows all trunk connections | Privileged EXEC Mode |
+
+## Layer 3 switch configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `vlan` [vlan-id] | Creates a VLAN and enters VLAN configuration mode | Global Configuration Mode |
+| `name` [name] | Gives the VLAN a name | VLAN Configuration Mode |
+| `interface vlan` [vlan-id] | Creaste an SVI for the VLAN, acts as the default gateway | Global Configuration Mode |
+| `ip address` [IPv4 address] [subnet mask] | Configures the IP addres (default gateway) on the SVI | Interface Configuration Mode |
+| `no shutdown` | Activates the SVI |  Interface Configuration Mode |
+| `interface` [type/number] | Selects a physical interface to configure | Global Configuration Mode |
+| `switchport mode acces` | Sets the port as an acces port | Interface Configuration Mode |
+| `switchport acces vlan` [vlan-id] | Assigns the access port to a specific VLAN | Interface Configuration Mode |
+| `ip routing` | Globally enables layer 3 routing on the switch | Global Configuration Mode |
+| `no switchport` | Converts a layer 2 port to a layer 3 routed port | Interface Configuration Mode |
+| `router ospf` [process id] | Enables OSPF routing and enters router configuration mode | Global Configuration Mode |
+| `network` [network address] [wildcard mask] [area id] | Advertises a network for OSPF | Router Configuration Mode |
