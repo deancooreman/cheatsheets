@@ -13,9 +13,7 @@ It's always a good idea to open a seperate terminal window and follow the logs i
 
 ## Link Layer
 
-### Step 1
-
-Are cables connected properly?
+### Step 1: Are cables connected properly?
 
 Physical device:
 - Look for blinking lights of the system under test and the network device it is attached to
@@ -24,16 +22,14 @@ Physical device:
 Virtual machine:
 - Check if the network adapter is connected to the right network
 
-### Step 2
-
-Are the network interface up?
+### Step 2: Are the network interface up?
 
 | Command | Description |
 | ---   | --- |
 | `ip -br l` | Check the status of the network interfaces |
 
-NO-CARRIER means that the cable is not connected
-If anything is down control cables and settings of the netwerk adapter
+- NO-CARRIER means that the cable is not connected
+- If anything is down control cables and settings of the netwerk adapter
 
 ## Internet Layer
 
@@ -91,4 +87,53 @@ Test connectivity:
 - Ping the DNS server
 
 ## Transport layer
+
+### Is the service running?
+
+| Command | Description |
+| ---   | --- |
+| `sudo systemctl status [service]` | Checks the status of the service |
+| `sudo systemctl start [service]` | Starts the service |
+| `sudo systemctl enable [service]` | Starts the service on boot |
+| `sudo systemctl enable --now [service]` | Starts the service on boot and also starts it now |
+
+### What port is the service using?
+
+| Command | Description |
+| ---   | --- |
+| `sudo ss -tlnp` | Shows what ports the services are using |
+
+- Check /etc/services for standard port numbers for well-known network services
+
+### Does the firewall allow traffic on the service?
+
+| Command | Description |
+| ---   | --- |
+| `sudo firewall-cmd --list-all` | Shows the firewall configuration |
+| `sudo firewall-cmd --add-service=[service name] --permanent` | Allow a service |
+| `sudo firewall-cmd --reload` | Reloads the firewall |
+
+## Application layer
+
+On this phase, we check whether the application is configured correctly, and whether it is available to clients and responds correctly to requests.
+
+### Checking logs
+
+- Some services write logs to a file in `/var/log`
+
+| Command | Description
+| --- | --- |
+| `sudo journalctl -fl` | Shows the current system journal logs in real time |
+| `sudo journalctl -flu` [service] | Shows the logs for a specific service in real time |
+| `tail -f /var/log/[logfile]` | Follows a logfile in real time |
+
+### Validate config file syntax
+
+- Most services have a command that checks the syntax of a configuration file before/without starting the service. Check the manpage for the exact command off each service
+- Check the configuration file, somewhere in /etc/, e.g. /etc/httpd/httpd.conf. First, create a backup of the current configuration file(s), and if possible the default one (as created when installing the service)
+- After making changes restart the service
+
+| Command | Description
+| --- | --- |
+| `sudo apachectl configtest` | Validates the syntax of the apache webserver config file |
 
