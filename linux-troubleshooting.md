@@ -57,6 +57,7 @@ Check the IP address:
 | `ip addres` | Detailed information about all network interfaces |
 | `ip -br a` | Short summary of the network interfaces |
 | `nmcli device status` | Shows the status of the interfaces |
+| `sudo nmcli connection show` | Shows the connection names and UUIDs |
 | `sudo nmcli connection modify '[connection]' ipv4.addresses [IPv4 address/subnetmask]` | Changes the IPv4 addres |
 | `sudo nmcli connection down '[connection]'` | Shuts a connection down |
 | `sudo nmcli connection up '[connection]'` | Activates a connection |
@@ -67,6 +68,8 @@ Check the default gateway:
 | ---   | --- |
 | `ip route` | Show the routing table |
 | `sudo ip route add default via [gateway-ip] dev [interface]` | Sets up the default gateway (in VM's this is through the NAT adaper with IP 10.0.2.2) |
+| `sudo ip route del default via [gateway-ip] dev [interface]` | Deletes a specific default route |
+| `sudo ip route del default` | Deletes the main default route (the 0.0.0.0/0 route) from the routing table |
 
 Check the DNS configuration:
 - The DNS server in virtualbox is the one provided by the NAT interface: 10.0.2.3
@@ -78,6 +81,9 @@ Check the DNS configuration:
 | `sudo nmcli connection modify [interface] ipv4.dns "[DNS IP]"` | Sets up the DNS server |
 | `sudo nmcli connection down '[connection]'` | Shuts a connection down |
 | `sudo nmcli connection up '[connection]'` | Activates a connection |
+| `sudo dnf install bind-utils -y` | Install utilities to use the commands dig, nslookup, host |
+| `dig` [hostname] | Gives detailed information about the DNS lookup |
+| `host` [hostname/ip] | Quick forward and reverse DNS lookups |
 
 ### Step 2: Routing within the LAN
 
@@ -102,6 +108,7 @@ Test connectivity:
 | Command | Description |
 | ---   | --- |
 | `sudo ss -tlnp` | Shows what ports the services are using |
+| `sudo semanage port -l \| grep [port/service]` | Checks SELinux port contexts |
 
 - Check /etc/services for standard port numbers for well-known network services
 
@@ -116,6 +123,18 @@ Test connectivity:
 ## Application layer
 
 On this phase, we check whether the application is configured correctly, and whether it is available to clients and responds correctly to requests.
+
+### Check file permissions
+
+For example the files in `/var/www/html` if you get acces denied when trying to visit a webpage from the webserver
+
+| Command | Description |
+| ---   | --- |
+| `ls -l` | Detailed info about the files in the directory including permissions |
+| `chmod 755` [file] | Gives files the right persmissions rwxr-xr-x
+| `ls -lZ` | Check SELinux file context |
+| `sudo restorecon` [file/directory] | Restores the default SELinux context for the specified file or directory |
+| `sudo restorecon -R` [directory] | Recursively restores the default context for all files and subdirectories under the given directory |
 
 ### Checking logs
 
@@ -136,4 +155,5 @@ On this phase, we check whether the application is configured correctly, and whe
 | Command | Description
 | --- | --- |
 | `sudo apachectl configtest` | Validates the syntax of the apache webserver config file |
+| `sudo systemctl restart` [service] | Restart serverices after making changes in the config file |
 
