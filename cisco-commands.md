@@ -23,6 +23,7 @@
 | ---   | --- | --- |
 | `ip address` [ip-address] [subnet-mask] | Assings IPv4 address | Interface Configuration Mode |
 | `ipv6 address` [ipv6-address/prefix-length] | Assingns IPv6 address | Interface Configuration Mode |
+| `ipv6 addres [ipv6 addres] link-local` | Sets the link-local adress |
 | `no shutdown` | Activates interface | Interface Configuration Mode |
 | `ip default-gateway` [ip-address] | Configure default gateway IP on a switch | Global Configuration Mode |
 
@@ -34,8 +35,13 @@
 | `enable secret` [password] | Set a password for priveleged exec mode | Global Configuration Mode |
 | `password` [password] | Set a password for acces via console or SSH | Line Configuration Mode |
 | `login` | Enforces the authentication requirement to the line | Line Configuration Mode |
+| `exec-timeout` [minutes] [seconds] | Sets the session to disconect after... |
 | `service password-encryption` | Encrypts all set passwords | Global Configuration Mode |
 | `banner motd` [\$message\$] | Configure a banner | Global Configuration Mode |
+| `security password min-length` [password lenght] | Configures the system to require a minimum lenght for passwords | Global Configuration mode |
+| `ipv6 unicast-routing` | Enables ipv6 routing | Global Configuration Mode |
+| `login block for [seconds] attempts [amount of attempts] within [seconds] ` | Sets up a timeout for failed login attempts | Global configuration mode |
+| `clock set [time] [month] [day] [year]` | Set up time and date | Privileged EXEC Mode |
 
 # Troubleshooting commands
 
