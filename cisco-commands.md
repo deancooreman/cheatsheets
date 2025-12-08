@@ -15,6 +15,7 @@
 | Command | Description | Mode
 | ---   | --- | --- |
 | `interface` | Configuration of a specific interface | Global Configuration Mode |
+| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | Global Configuration mode |
 | `line` | Configuration of an acces method (console, VTY) | Global Configuration Mode |
 
 # Adressing and interface activation
