@@ -271,3 +271,35 @@ The DHCPv4 service is enabled by default
 | `show ip dhcp binding` | Displays a list of all IPv4 address to MAC address bindings provided | Privileged EXEC Mode |
 | `show ip dhcp server statistics` | Displays count information regarding DHCPv4 messages sent and received | Privileged EXEC Mode |
 
+# DHCPv6
+
+## Configuring a stateless DHCPv6 server
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ipv6 unicast-routing` | Enable IPv6 routing |
+| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool |
+| `dns-server [dns server ipv6 address]` | Option to add a DNS server |
+| `domain-name [name]` | Option to add a domain name |
+| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool |
+| `ipv6 nd other-config-flag` | Manually change the O flag from 0 to 1 |
+
+## Configure a Stateless DHCPv6 client
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ipv6 unicast-routing` | Enable IPv6 routing |
+| `ipv6 enable` | Create an LLA |
+| `ipv6 address autoconfig` | Configure to use SLAAC |
+| `show ipv6 interface brief` | Verify that the GUA is assigned |
+| `show ipv6 dhcp interface [interface name]` | Verify that the client router received other necessary DHCPv6 information |
+
+## Configuring a statefull DHCPv6 server
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ipv6 unicast-routing` | Enable IPv6 routing |
+| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool |
+| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool |
+| `ipv6 nd managed-config-flag` | Manually change the M flag from 0 to 1 |
+| `ipv6 nd prefix default no-autoconfig` | Manually change the A flag from 1 to 0 |
