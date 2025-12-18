@@ -174,7 +174,6 @@ Filtering parameters:
 
 `configure terminal`, `interface G0/0/1.10`, `description default gateway for VLAN 10`, `encapsulation dot1q 10`, `ip address 192.168.10.1 255.255.255.0`, `exit`
 
-
 ## Troubleshooting
 
 | Command | Description | Mode |
@@ -203,3 +202,70 @@ Filtering parameters:
 | `no switchport` | Converts a layer 2 port to a layer 3 routed port | Interface Configuration Mode |
 | `router ospf` [process id] | Enables OSPF routing and enters router configuration mode | Global Configuration Mode |
 | `network` [network address] [wildcard mask] [area id] | Advertises a network for OSPF | Router Configuration Mode |
+
+# EtherChannels
+
+## Configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | Global Configuration mode |
+| `channel-group [number] mode active` | Configures the range of interfaces to a LACP EhterChannel (port initiates negotiations with other ports) | Interface Configuration Mode |
+| `channel-group [number] mode passive` | Configures the range of interfaces to a LACP EhterChannel (port responds to LACP packets) | Interface Configuration Mode |
+| `channel-group [number] mode auto` | Configures the range of interfaces to a PAgP EhterChannel (port initiates negotiations with other ports) | Interface Configuration Mode |
+| `channel-group [number] mode desirable` | Configures the range of interfaces to a PAgP EhterChannel (port responds to PAgP packets) | Interface Configuration Mode |
+| `channel-group [number] mode on` | Configures the range of interfaces to an EtherChannel (both sides need to be set to on to work) | Interface Configuration Mode |
+| `interface port-channel [number]` | Configuration of the port channel | Global Configuration Mode |
+| `switchport mode trunk` | Set the port to permanent trunking mode | Interface Configuration Mode |
+| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link | Interface Configuration Mode |
+
+## Troubleshooting
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show interfaces port-channel` | Displays the general status of the port channel interface | Privileged EXEC Mode |
+| `show etherchannel summary` | Displays one line of information per port channel | Privileged EXEC Mode |
+| `show etherchannel port-channel` | Displays information about a specific port channel interface | Privileged EXEC Mode |
+| `show interfaces etherchannel` | Displays information about the role of a physical member interface of the EtherChannel | Privileged EXEC Mode |
+
+# DHCPv4
+
+## Enable / Disable
+
+The DHCPv4 service is enabled by default
+
+| Command | Description | Mode |
+| `no service dhcp` | Disable | Global Configuration Mode |
+| `service` | Enable | Global Configuration Mode |
+
+## Configuration to use cisco router as DHCP server
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ip dhcp excluded-address low-addres [high-addres]` | Exclude IPv4 addresses | Global Configuration mode |
+| `ip dhcp pool pool-name` | Creates a pool with a specified name en puts the router in DHCPv4 configuration mode | Global Configuration mode |
+| `default-router address [address2...address8]` | Specifies the IPv4 address of the default gateway for the DHCPv4 clients | DHCPv4 configuration mode |
+| `dns-server address [address2...address8]` | Configures the IPv4 address(es) of the DNS server(s) available to the clients | DHCPv4 configuration mode |
+| `domain-name domain` | Defines the domain name for the network pool | DHCPv4 configuration mode |
+| `lease {days [hours [minutes]] \| infinite}` | Sets the duration of the lease for the assigned IP address | DHCPv4 configuration mode |
+| `netbios-name-server address [address2...address8]` | Configures the NetBIOS WINS server(s) if required for the network | DHCPv4 configuration mode |
+
+## Configuration with external DHCP server
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ip helper-address [address]` | Relay DHCPv4 broadcast to the DHCPv4 server | Interface Configuration Mode (On the interface receiving the client broadcasts) |
+
+## Configuration Cisco router as a DHCPv4 Client
+
+| Command | Description | Mode |
+| `ip address dhcp` | Configures an Ethernet interface as a DHCP client | Interface Configuration Mode |
+
+## Verification
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show running-config \| section dhcp` | Displays the DHCPv4 commands configured on the router | Privileged EXEC Mode |
+| `show ip dhcp binding` | Displays a list of all IPv4 address to MAC address bindings provided | Privileged EXEC Mode |
+| `show ip dhcp server statistics` | Displays count information regarding DHCPv4 messages sent and received | Privileged EXEC Mode |
+
