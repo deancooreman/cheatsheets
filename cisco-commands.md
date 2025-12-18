@@ -36,7 +36,7 @@
 | `enable secret` [password] | Set a password for priveleged exec mode | Global Configuration Mode |
 | `password` [password] | Set a password for acces via console or SSH | Line Configuration Mode |
 | `login` | Enforces the authentication requirement to the line | Line Configuration Mode |
-| `exec-timeout` [minutes] [seconds] | Sets the session to disconect after... |
+| `exec-timeout` [minutes] [seconds] | Sets the session to disconect after... | Line Configuration Mode |
 | `service password-encryption` | Encrypts all set passwords | Global Configuration Mode |
 | `banner motd` [\$message\$] | Configure a banner | Global Configuration Mode |
 | `security password min-length` [password lenght] | Configures the system to require a minimum lenght for passwords | Global Configuration mode |
@@ -235,6 +235,7 @@ Filtering parameters:
 The DHCPv4 service is enabled by default
 
 | Command | Description | Mode |
+| ---   | --- | --- |
 | `no service dhcp` | Disable | Global Configuration Mode |
 | `service` | Enable | Global Configuration Mode |
 
@@ -259,6 +260,7 @@ The DHCPv4 service is enabled by default
 ## Configuration Cisco router as a DHCPv4 Client
 
 | Command | Description | Mode |
+| ---   | --- | --- |
 | `ip address dhcp` | Configures an Ethernet interface as a DHCP client | Interface Configuration Mode |
 
 ## Verification
