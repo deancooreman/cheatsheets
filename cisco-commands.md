@@ -245,6 +245,7 @@ The DHCPv4 service is enabled by default
 | ---   | --- | --- |
 | `ip dhcp excluded-address low-addres [high-addres]` | Exclude IPv4 addresses | Global Configuration mode |
 | `ip dhcp pool pool-name` | Creates a pool with a specified name en puts the router in DHCPv4 configuration mode | Global Configuration mode |
+| `network [network address] [subnetmask]` | Define the range of the available addresses | DHCPv4 configuration mode |
 | `default-router address [address2...address8]` | Specifies the IPv4 address of the default gateway for the DHCPv4 clients | DHCPv4 configuration mode |
 | `dns-server address [address2...address8]` | Configures the IPv4 address(es) of the DNS server(s) available to the clients | DHCPv4 configuration mode |
 | `domain-name domain` | Defines the domain name for the network pool | DHCPv4 configuration mode |
@@ -303,3 +304,34 @@ The DHCPv4 service is enabled by default
 | `ipv6 dhcp server [pool-name]` | Bind the interface to the pool |
 | `ipv6 nd managed-config-flag` | Manually change the M flag from 0 to 1 |
 | `ipv6 nd prefix default no-autoconfig` | Manually change the A flag from 1 to 0 |
+
+## Configuring a statefull DHCPv6 client
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ipv6 unicast-routing` | Enable IPv6 routing |
+| `ipv6 enable` | Create an LLA |
+| `ipv6 address dhcp` | Configure the router to use DHCPv6 |
+| `show ipv6 interface brief` | Verify that the GUA is assigned |
+| `show ipv6 dhcp interface [interface name]` | Verify that the client router received other necessary DHCPv6 information |
+
+## DHCPv6 Server Verification Commands
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show ipv6 dhcp pool` | Verify the name of the DHCPv6 pool and its parameters |
+| `show ipv6 dhcp binding` | Displays the IPv6 link-local address of the client and the global unicast address assigned bij the server |
+
+## Configure a DHCPv6 Relay Agent
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `ipv6 dhcp relay destination [DHCPv6 server address] [interface to reach the server]` | If the DHCPv6 server is located on another network than the client, then the IPv6 router can be configured as a DHCPv6 relay agent (egress interface only requiered when the next hop address is an LLA) |
+
+## Verify the DHCPv6 Relay Agent
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show ipv6 dhcp` | Verify that the DHCPv6 relay agent is operational |
+| `show ipv6 dhcp binding` | Verify that the DHCPv6 relay agent is operational |
+
