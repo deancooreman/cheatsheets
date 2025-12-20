@@ -335,3 +335,21 @@ The DHCPv4 service is enabled by default
 | `show ipv6 dhcp` | Verify that the DHCPv6 relay agent is operational |
 | `show ipv6 dhcp binding` | Verify that the DHCPv6 relay agent is operational |
 
+# FHRP
+
+## Configuration
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `standby version 2` | Sets the HSRP version to 2 |
+| `standby [group] ip [address]` | Assigns the virtual IP address that clients will use as their default gateway |
+| `standby [group] priority [value]` | Sets the router's priority (default is 100) range 0 to 255; the router with the highest value becomes Active |
+| standby [group] preempt | Allows this router to forcefully take back the "Active" role if it comes online with a higher priority than the current active router |
+
+## Verification
+
+| Command | Description | Mode |
+| ---   | --- | --- |
+| `show standby brief` | Displays a summary table of HSRP states, priorities, and virtual IPs to verify the setup |
+
+
