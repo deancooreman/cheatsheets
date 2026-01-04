@@ -102,6 +102,7 @@ Test connectivity:
 | `sudo systemctl start [service]` | Starts the service |
 | `sudo systemctl enable [service]` | Starts the service on boot |
 | `sudo systemctl enable --now [service]` | Starts the service on boot and also starts it now |
+| `sudo systemctl list-unit-files \| grep [service]` | Looks up the exact name of a service |
 
 ### What port is the service using?
 
