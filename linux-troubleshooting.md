@@ -31,6 +31,11 @@ Virtual machine:
 - NO-CARRIER means that the cable is not connected
 - If anything is down control cables and settings of the netwerk adapter
 
+### Step 3: Check .bashrc
+
+Check the hidden file `.bashrc` in the home directory
+If this file contains things that shouldnt be there you can get problems.
+
 ## Internet Layer
 
 Local network configuration of the system under test:
@@ -113,6 +118,27 @@ Test connectivity:
 
 - Check /etc/services for standard port numbers for well-known network services
 
+### Ports in LAMP stack
+
+| Service| Port |
+| ---   | --- |
+| Apache http | 80 |
+| Apache https | 443 |
+| Mariadb | 3306 |
+| SSH | 22 |
+
+### Config file locations
+
+| Service | Path |
+| ---   | --- |
+| Apache (RHEL) | `/etc/httpd/conf/httpd.conf` |
+| Apache (Debian) | `/etc/apache2/apache2.conf` |
+| Nginx | `/etc/nginx/nginx.conf` |
+| MariaDB | `/etc/my.cnf` and `/etc/mysql/my.cnf` |
+| SSH | `/etc/ssh/sshd_config` |
+| BIND DNS | `/etc/named.conf` |
+| lighttpd | `/etc/lighttpd/lighttpd.conf` |
+
 ### Does the firewall allow traffic on the service?
 
 | Command | Description |
@@ -136,6 +162,9 @@ For example the files in `/var/www/html` if you get acces denied when trying to 
 | `ls -lZ` | Check SELinux file context |
 | `sudo restorecon` [file/directory] | Restores the default SELinux context for the specified file or directory |
 | `sudo restorecon -R` [directory] | Recursively restores the default context for all files and subdirectories under the given directory |
+| `getsebool -a \| grep [service]` | Looks up SELinux booleans |
+| `sudo setsebool -P [boolea name]` | Sets the SELinux boolean permanent to on |
+
 
 ### Checking logs
 
