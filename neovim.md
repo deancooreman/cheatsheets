@@ -4,16 +4,15 @@
 
 | Shortcut | Description |
 | :--- | :--- |
-| `-` | Open file explorer (edit folders like text) |
-| `space + space` | Find files |
-| `space + ,` | Search buffers |
-| `Space + /` | Search in project |
+| `-` | Open file explorer (Oil) |
+| `Space + Space` | Find files |
+| `Space + ,` | Search buffers |
+| `Space + /` | Search in project (ripgrep) |
 
 ### Oil.nvim Shortcuts
 - `Enter`: Open the file or directory under the cursor.
 - `-`: Go up one directory level.
 - `:w`: Save changes to the filesystem (rename, delete, move).
-- `ctrl + 6`: close file explorer
 
 ## IDE Features (LSP)
 
@@ -22,9 +21,17 @@
 | `gd` | Jump to where a variable/function is defined |
 | `K` | Show documentation for item under cursor |
 | `gr` | List all usages of a variable/function |
-| `rn` | Rename variable across the whole project |
-| `[d` | Jump to previous error or warning |
-| `]d` | Jump to next error or warning |
+| `Space + rn` | Rename variable across the whole project |
+| `Space + ca` | Code actions (fix imports, etc.) |
+| `[d` | Jump to previous diagnostic (error/warning) |
+| `]d` | Jump to next diagnostic (error/warning) |
+
+## Autocompletion (blink.cmp)
+
+| Shortcut | Description |
+| :--- | :--- |
+| `Tab` | Accept suggestion / go to next item |
+| `Shift + Tab` | Go to previous item |
 
 ## Commenting (`Comment.nvim`)
 
@@ -35,17 +42,27 @@
 
 | Shortcut | Description |
 | :--- | :--- |
-| `space + md` | Toggle live preview |
+| `Space + mp` | Toggle live preview in browser |
 
 ## System Commands
 
 | Command | Action |
 | :--- | :--- |
 | `:Lazy` | Manage and update plugins |
+| `:Lazy sync` | Install + update + clean all plugins |
+| `:Lazy clean` | Remove unused plugins |
 | `:Mason` | Install/Manage Language Servers |
 | `:checkhealth` | Run Neovim health check |
 
-## Moving around
+## Installed Language Servers
+
+| Server | Language |
+| :--- | :--- |
+| `pyright` | Python |
+| `bashls` | Bash |
+| `marksman` | Markdown |
+
+## Moving Around
 
 | Command | Action |
 | :--- | :--- |
@@ -54,47 +71,51 @@
 | `k` | Move cursor up |
 | `l` | Move cursor right |
 | `0` | Move cursor to beginning of line |
-| `^` | Move cursor to first non-whitespace character of line |
+| `^` | Move cursor to first non-whitespace character |
 | `$` | Move cursor to end of line |
-| `gg` | Move cursor to beginning of the file |
-| `G` | Move cursor to end of the file |
-| `5G` | Move cursor to line number 5 |
+| `gg` | Move cursor to beginning of file |
+| `G` | Move cursor to end of file |
+| `5G` | Move cursor to line 5 |
+| `Ctrl + u` | Scroll up half a page |
+| `Ctrl + d` | Scroll down half a page |
 
 ## File Management
 
 | Command | Action |
 | :--- | :--- |
 | `:e filename` | Open file for editing |
-| `:w` | Save current buffer to disk |
-| `:w filename` | Save current buffer to filename |
-| `:q` | Close the current window |
-| `:wq` | Save and close the current window |
-| `:q!` | Close the current window without saving |
-| `:wa` | Save all open buffers to disk |
+| `:w` | Save current buffer |
+| `:w filename` | Save buffer as filename |
+| `:q` | Close current window |
+| `:wq` | Save and close |
+| `:q!` | Close without saving |
+| `:wa` | Save all open buffers |
 
-## Visual mode
+## Visual Mode
 
 | Command | Action |
 | :--- | :--- |
-| `v` | Enter Visual mode and select text character by character |
-| `V` | Enter Visual mode and select text line by line |
-| `y` | Yank (copy) the selected line |
-| `d` | Delete the selected text |
-| `c` | Change the selected text and enter Insert mode |
+| `v` | Select character by character |
+| `V` | Select line by line |
+| `y` | Yank (copy) selection |
+| `d` | Delete selection |
+| `c` | Change selection and enter Insert mode |
 
 ## Editing
 
 | Command | Action |
 | :--- | :--- |
-| `i` | Enter Insert mode before the cursor |
-| `a` | Enter Insert mode after the cursor |
-| `I` | Enter Insert mode at beginning of the line |
-| `A` | Enter Insert mode at the end of the line |
-| `o` | Insert a new line below the current line and enter Insert mode |
-| `O` | Insert a new line above the current line and enter Insert mode |
-| `dd` | Delete the current line |
-| `D` | Delete from the cursor to the end of the line |
-| `C` | Change from the cursor to the end of the line and enter Insert mode |
-| `u` | Undo the last change |
-| `cw` | Change from cursor to end of word and enter Insert mode |
-| `cb` | Change from cursor to beginning of word and enter Insert mode |
+| `i` | Insert before cursor |
+| `a` | Insert after cursor |
+| `I` | Insert at beginning of line |
+| `A` | Insert at end of line |
+| `o` | New line below and insert |
+| `O` | New line above and insert |
+| `dd` | Delete current line |
+| `D` | Delete to end of line |
+| `C` | Change to end of line |
+| `cw` | Change to end of word |
+| `ciw` | Change entire word under cursor |
+| `u` | Undo |
+| `Ctrl + r` | Redo |
+
