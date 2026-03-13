@@ -26,7 +26,7 @@
 | `[d` | Jump to previous diagnostic (error/warning) |
 | `]d` | Jump to next diagnostic (error/warning) |
 
-## Autocompletion (blink.cmp)
+## Autocompletion
 
 | Shortcut | Description |
 | :--- | :--- |

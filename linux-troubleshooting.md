@@ -2,7 +2,7 @@
 
 Always use a bottom-up approach in order to troubleshoot effectively interventions on higher layers will not solve issues if problems on the lower layer aren't fixed first.
 
-## Real time logs
+## Real Time Logs
 
 It's always a good idea to open a seperate terminal window and follow the logs in real time
 
@@ -29,7 +29,7 @@ Virtual machine:
 | `ip -br l` | Check the status of the network interfaces |
 
 - NO-CARRIER means that the cable is not connected
-- If anything is down control cables and settings of the netwerk adapter
+- If anything is down control cables and settings of the network adapter
 
 ### Step 3: Check .bashrc
 
