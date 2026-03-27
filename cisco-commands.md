@@ -1,355 +1,385 @@
-# General Commands
+# Cisco IOS Cheatsheet
+
+---
+
+## Verify Configuration
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `?`     | Call for help | All modes |
-| `enable` | Privileged exec mode| User EXEC Mode |
-| `disable` | User exec mode | Privileged EXEC Mode |
-| `configure terminal` | Global configuration mode | Privileged EXEC Mode |
-| `end` | Go back to privileged exec mode | All configuration submodes |
-| `exit` | Go back to the previous mode | All configuration submodes |
-| `copy` | copy file to another file | Privileged EXEC Mode |
+|---------|-------------|------|
+| `show running-config` | Current running configuration | `#` |
+| `show startup-config` | Current startup configuration | `#` |
+| `show interfaces` | Info about all physical and virtual interfaces including errors | `#` |
+| `show ip route` | Shows the IPv4 routing table | `#` |
+| `show ipv6 route` | Shows the IPv6 routing table | `#` |
+| `show running-config \| section ip route` | Shows config of the static routes | `#` |
 
-# Interface / subconfiguration
+---
 
-| Command | Description | Mode
-| ---   | --- | --- |
-| `interface` | Configuration of a specific interface | Global Configuration Mode |
-| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | Global Configuration mode |
-| `line` | Configuration of an acces method (console, VTY) | Global Configuration Mode |
-
-# Adressing and interface activation
+## Basic Device Configuration
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `ip address` [ip-address] [subnet-mask] | Assings IPv4 address | Interface Configuration Mode |
-| `ipv6 address` [ipv6-address/prefix-length] | Assingns IPv6 address | Interface Configuration Mode |
-| `ipv6 addres [ipv6 addres] link-local` | Sets the link-local adress |
-| `no shutdown` | Activates interface | Interface Configuration Mode |
-| `ip default-gateway` [ip-address] | Configure default gateway IP on a switch | Global Configuration Mode |
+|---------|-------------|------|
+| `copy running-config startup-config` | Save the changes | `#` |
+| `clock set [time] [month] [day] [year]` | Set up time and date | `#` |
+| `hostname [name]` | Set the device name | `config` |
+| `enable secret [password]` | Set a password for privileged exec mode | `config` |
+| `banner motd $[message]$` | Configure a banner | `config` |
+| `security password min-length [length]` | Configures the system to require a minimum length for passwords | `config` |
+| `login block-for [seconds] attempts [amount] within [seconds]` | Sets up a timeout for failed login attempts | `config` |
+| `service password-encryption` | Encrypts all set passwords | `config` |
+| `password [password]` | Set a password for access via console or SSH | `config-line` |
+| `login` | Enforces the authentication requirement to the line | `config-line` |
+| `exec-timeout [minutes] [seconds]` | Sets the session to disconnect after a timeout | `config-line` |
+| `no ip domain-lookup` | Disable DNS lookup to prevent the router from attempting to translate incorrectly entered commands as host names | `config-line` |
 
-# Device configuration
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `hostname` [name] | Set the device name | Global Configuration Mode |
-| `enable secret` [password] | Set a password for priveleged exec mode | Global Configuration Mode |
-| `password` [password] | Set a password for acces via console or SSH | Line Configuration Mode |
-| `login` | Enforces the authentication requirement to the line | Line Configuration Mode |
-| `exec-timeout` [minutes] [seconds] | Sets the session to disconect after... | Line Configuration Mode |
-| `service password-encryption` | Encrypts all set passwords | Global Configuration Mode |
-| `banner motd` [\$message\$] | Configure a banner | Global Configuration Mode |
-| `security password min-length` [password lenght] | Configures the system to require a minimum lenght for passwords | Global Configuration mode |
-| `ipv6 unicast-routing` | Enables ipv6 routing | Global Configuration Mode |
-| `login block for [seconds] attempts [amount of attempts] within [seconds] ` | Sets up a timeout for failed login attempts | Global configuration mode |
-| `clock set [time] [month] [day] [year]` | Set up time and date | Privileged EXEC Mode |
-
-# Troubleshooting commands
-
-Output filter can be used in combination with any show command.
-To enable the filter command, enter a pipe (|) after the show command folowed by a filtering parameter
-Filtering parameters:
-- `section` Displays the entire section that starts with the filtering expression
-- `include` Includes all output lines that match the filtering expression
-- `exclude` Excludes all output lines that match the filtering expression
-- `begin` Displays all the output lines from a certain point, starting with the line that matches the filtering expression
+## Interface Configuration
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `show ip interface brief` | Overview assigned IPv4 addresses | Privileged EXEC Mode |
-| `show ipv6 interface brief` | Overview assigned IPv6 addresses | Privileged EXEC Mode |
-| `show ip interface` [interface-id] | IPv4 information of a specific interface | Privileged EXEC Mode |
-| `show ipv6 interface` [interface-id] | IPv6 information of a specific interface | Privileged EXEC Mode |
-| `show startup-config` | Current running configuration | Privileged EXEC Mode |
-| `show running-config` | Current startuo configuration | Privileged EXEC Mode |
-| `show flash` | Info about the content of the flash memory | Privileged EXEC Mode |
-| `show version` | Status of the system hardware and software | Privileged EXEC Mode |
-| `show history` | History of entered commands | Privileged EXEC Mode |
-| `show mac-address-table` | Content of the MAC address table | Privileged EXEC Mode |
-| `show ip ssh` | Version and configuration details SSH | Privileged EXEC Mode |
-| `show ip route` | Content of the IPv4 routing table | Privileged EXEC Mode |
-| `show ipv6 route` | Content of the IPv6 routing table | Privileged EXEC Mode |
-| `show boot` | Current settings of the IOS startup file | Privileged EXEC Mode |
-| `show controllers ethernet-controller phy` | Controls duplex, speed and auto-MDIX settings | Privileged EXEC Mode |
-| `show cdp neighbours` | List of directly connected Cisco devices | Privileged EXEC Mode |
-| `traceroute` [IP address] | Verify path to destination network | Privileged EXEC Mode |
-| `ping` [IP address] | Verify layer 3 connectivity to destination | Privileged EXEC Mode |
+|---------|-------------|------|
+| `interface [interface name]` | Configuration of a specific interface | `config` |
+| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | `config` |
+| `line vty [number] [number]` | Configuration of an access method (console, VTY) | `config` |
+| `ip default-gateway [ip-address]` | Configure default gateway IP on a switch | `config` |
+| `interface loopback [number]` | Configure a loopback interface on a router | `config` |
+| `ipv6 address [ipv6-address] link-local` | Sets the link-local address | `config-if` |
+| `ip address [ip-address] [subnet-mask]` | Assigns IPv4 address | `config-if` |
+| `ipv6 address [ipv6-address/prefix]` | Assigns IPv6 address | `config-if` |
+| `description [description]` | Description of the interface | `config-if` |
+| `no shutdown` | Activates interface | `config-if` |
 
+---
 
-
-# System management and boot settings
+## Configure SSH (use in this order)
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `boot system` [path/filename] | Sets the BOOT environment | Global Configuration Mode |
-| `sdm prefer dual-ipv4-and-ipv6 default` | Lets a switch work with IPv6 requiers a reload | Global Configuration Mode |
+|---------|-------------|------|
+| `ip domain-name [domain-name]` | Configure the IP domain | `config` |
+| `crypto key generate rsa` | Generate an RSA key pair (use 1024) | `config` |
+| `username [username] secret [password]` | Configures a local user | `config` |
+| `line vty 0 15` | Configure the vty lines | `config` |
+| `transport input ssh` | Configures mandatory use of SSH | `config-line` |
+| `login local` | Allows login with the local user | `config-line` |
+| `exit` | Exit to global configuration mode | `config-line` |
+| `ip ssh version 2` | Enables SSH version 2 | `config` |
 
-# Switch port configuration
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `duplex` [auto or full or half] | Configure the duplex mode | Interface Configuration Mode |
-| `speed` [auto or 10 or 100 or 1000] | Configure the speed | Interface Configuration Mode |
-| `auto mdix` | Automaticly detects cable type | Interface Configuration Mode |
-
-# SSH Configuration
-
-| Step | Command | Description | Mode |
-| --- | --- | --- | --- |
-| 1 | `show ip ssh` | Check if SSH is supported | Privileged EXEC Mode |
-| 2 | `ip domain-name` [domain-name] | Configure the IP domain | Global Configuration Mode |
-| 3 | `crypto key generate rsa` | Generate a RSA key pair | Global Configuration Mode |
-| 4 | `username` [username] secret [password] | Configures a local user | Global Configuration Mode |
-| 5 (VTY Lines) | `transport input ssh` and `login local` | Configures mandatory use of SSH and allows login with the local user | Global Configuration Mode |
-| 6 | `ip ssh version 2` | Enables SSH version 2 | Global Configuration Mode |
-
-# Loobback interface on router
+## Static Routing
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `interface loopback` [number] | Creates and accesses a loopback interface | Global Configuration Mode |
-| `ip address` [ip-address] [subnet-mask] | Assign a IPv4 address to the loopback interface | Interface Configuration Mode |
+|---------|-------------|------|
+| `ip route [dest IPv4 network] [subnet-mask] [next-hop IPv4 address] [distance]` | Next-hop IPv4 static route | `config` |
+| `ip route [dest IPv4 network] [subnet-mask] [exit interface] [distance]` | Directly connected IPv4 static route | `config` |
+| `ip route [dest IPv4 network] [subnet-mask] [exit interface] [next-hop IPv4 address] [distance]` | Fully specified IPv4 static route | `config` |
+| `ip route 0.0.0.0 0.0.0.0 [next-hop IPv4 address / exit interface]` | Default static IPv4 route | `config` |
+| `ipv6 unicast-routing` | Enables IPv6 routing | `config` |
+| `ipv6 route [dest IPv6 prefix/length] [next-hop IPv6 address] [distance]` | Next-hop IPv6 static route | `config` |
+| `ipv6 route [dest IPv6 prefix/length] [exit interface] [distance]` | Directly connected IPv6 static route | `config` |
+| `ipv6 route [dest IPv6 prefix/length] [exit interface] [next-hop IPv6 address] [distance]` | Fully specified IPv6 static route | `config` |
+| `ipv6 route ::/0 [next-hop IPv6 address / exit interface]` | Default static IPv6 route | `config` |
 
-# Routing
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ip route` [destination IPv4 network] [subnet-mask] [next hop IPv4 address] [distance] | Next-hop IPv4 static route | Global Configuration Mode |
-| `ip route` [destination IPv4 network] [subnet-mask] [exit interface] [distance] | Directly connected IPv4 static route | Global Configuration Mode |
-| `ip route` [destination IPv4 network] [subnet-mask] [exit interface] [next hop IPv4 address] [distance] | Fully specified IPv4 static route | Global Configuration Mode |
-| `ipv6 route` [destination IPv6 network prefix length] [next hop IPv6 addres] [distance] | Next-hop IPv6 static route | Global Configuration Mode |
-| `ipv6 route` [destination IPv6 network prefix length] [exit interface] [distance] | Directly connected IPv6 static route | Global Configuration Mode |
-| `ipv6 route` [destination IPv6 network prefix length] [exit interface] [next hop IPv6 addres] [distance] | Fully specified IPv6 static route | Global Configuration Mode |
-| `ip route 0.0.0.0 0.0.0.0` [next-hop IPv4 address / exit interface] | Default static IPv4 route | Global Configuration Mode |
-| `ipv6 route ::/0` [next-hop IPv6 addres / exit interface] | Default static IPv6 route | Global Configuration Mode |
-| `ip route` [destination host adress] [255.255.255.255] [next hop IPv4 address / exit interface] [distance] | IPv4 static host route | Global Configuration Mode |
-| `ipv6 route` [destination IPv6 address with /128 prefix] [exit interface / next hop IPv6 addres] [distance] | IPv6 static host route | Global Configuration Mode |
-
-# VLAN
-
-## VLAN configuration
+## VLAN Create, Remove, Assign
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `vlan` [vlan-id] | Create a VLAN with a valid ID number | Global Configuration Mode |
-| `no vlan` [vlan-id] | Delete VLAN | Global Configuration Mode |
-| `name` [vlan-name] | Give the VLAN a name | VLAN Configuration Mode |
-| `switchport mode acces` | Set interface port to acces mode | Interface Configuration Mode |
-| `switchport acces vlan` [vlan-id] | Assign the interface port to a VLAN | Interface Configuration Mode |
-| `no switchport acces vlan` | Assign the interface port back to VLAN 1 | Interface Configuration Mode |
-| `delete vlan.dat` | Delete all VLANs. Reload the switch after doing this | Privileged EXEC MODE |
+|---------|-------------|------|
+| `delete vlan.dat` | Delete all VLANs — reload the switch after doing this | `#` |
+| `vlan [vlan-id]` | Create a VLAN with a valid ID number | `config` |
+| `no vlan [vlan-id]` | Delete a VLAN | `config` |
+| `interface vlan [vlan-id]` | Enter the VLAN interface config | `config` |
+| `name [vlan-name]` | Give the VLAN a name | `config-vlan` |
+| `switchport mode access` | Set interface port to access mode | `config-if` |
+| `switchport access vlan [vlan-id]` | Assign the interface port to a VLAN | `config-if` |
+| `no switchport access vlan` | Assign the interface port back to VLAN 1 | `config-if` |
 
-### Example
+---
 
-`configure terminal`, `interface fa0/18`, `switchport mode acces`, `switchport acces vlan 20`, `end`
-
-## Trunk configuration
-
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `switchport mode trunk` | Set the port to permanent trunking mode | Interface Configuration Mode |
-| `switchport trunk native vlan` [vlan-id] | Set the native VLAN to something other than VLAN 1 | Interface Configuration Mode |
-| `no switchport trunk native vlan` | Reset the native VLAN to 1 | Interface Configuration Mode |
-| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link | Interface Configuration Mode |
-| `no switchport trunk allowed vlan` | Reset to default | Interface Configuration Mode |
-| `switchport mode acces` | RESET interface port to acces mode (default) | Interface Configuration Mode |
-| `switchport mode dynamic auto` | Interface will become trunk if the neighboring interface is set to trunk or desirable mode | Interface Configuration Mode |
-| `switchport mode dynamic desirable` | Actively seeks to become a trunk by negotiating with other auto or desirable interfaces | Interface Configuration Mode |
-
-### Example
-
-`configure terminal`, `interface fa0/1`, `switchport mode trunk`, `switchport trunk native vlan 99`, `switchport trunk allowed vlan 10,20,30,99`, `end`
-
-## Router configuration
+## VLAN Trunk Configuration
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `interface` [interface id].[subinterface id] | Create a subinterface | Global Configuration mode |
-| `description` | Gives the subinterface a description | Sub interface configuration mode |
-| `encapsulation dot1q` [vlan id] | Configures the subinterface to respond to 802.1Q traffic | Sub interface configuration mode |
-| `encapsulation dot1q` [vlan id] [native] | Set the vlan to something other then 1 | Sub interface configuration mode |
-| `ip address` [ip-address] [subnet-mask] | Gives the subinterface a IPv4 adress |Sub interface configuration mode |
+|---------|-------------|------|
+| `switchport mode trunk` | Set the port to permanent trunking mode | `config-if` |
+| `switchport mode dynamic auto` | Interface will become trunk if the neighboring interface is set to trunk or desirable mode | `config-if` |
+| `switchport mode dynamic desirable` | Actively seeks to become a trunk by negotiating with other auto or desirable interfaces | `config-if` |
+| `switchport mode access` | Reset interface port to access mode (default) | `config-if` |
+| `switchport trunk native vlan [vlan-id]` | Set the native VLAN to something other than VLAN 1 | `config-if` |
+| `no switchport trunk native vlan` | Reset the native VLAN to 1 | `config-if` |
+| `switchport trunk allowed vlan [vlan list]` | Specify the list of VLANs to be allowed on the trunk link | `config-if` |
+| `no switchport trunk allowed vlan` | Reset to default | `config-if` |
 
-### Example
+---
 
-`configure terminal`, `interface G0/0/1.10`, `description default gateway for VLAN 10`, `encapsulation dot1q 10`, `ip address 192.168.10.1 255.255.255.0`, `exit`
+## VLAN Router Configuration
 
-## Troubleshooting
-
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `show vlan brief` | Display VLAN name, and its ports one VLAN per line | Privileged EXEC Mode |
-| `show vlan id` [vlan-id] | Display information about the specified VLAN | Privileged EXEC Mode |
-| `show vlan name` [vlan-name] | Display information about the specified VLAN | Privileged EXEC Mode |
-| `show vlan summary` | Display VLAN summary information | Privileged EXEC Mode |
-| `show interface [interface] switchport` | Shows port modus and assigned vlans | Privileged EXEC Mode |
-| `show dtp interface` [interface] | Show the current DTP mode | Privileged EXEC Mode |
-| `show interfaces trunk` | Shows all trunk connections | Privileged EXEC Mode |
-
-## Layer 3 switch configuration
+> Don't forget to use `no shutdown` on the main interface.
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `vlan` [vlan-id] | Creates a VLAN and enters VLAN configuration mode | Global Configuration Mode |
-| `name` [name] | Gives the VLAN a name | VLAN Configuration Mode |
-| `interface vlan` [vlan-id] | Creaste an SVI for the VLAN, acts as the default gateway | Global Configuration Mode |
-| `ip address` [IPv4 address] [subnet mask] | Configures the IP addres (default gateway) on the SVI | Interface Configuration Mode |
-| `no shutdown` | Activates the SVI |  Interface Configuration Mode |
-| `interface` [type/number] | Selects a physical interface to configure | Global Configuration Mode |
-| `switchport mode acces` | Sets the port as an acces port | Interface Configuration Mode |
-| `switchport acces vlan` [vlan-id] | Assigns the access port to a specific VLAN | Interface Configuration Mode |
-| `ip routing` | Globally enables layer 3 routing on the switch | Global Configuration Mode |
-| `no switchport` | Converts a layer 2 port to a layer 3 routed port | Interface Configuration Mode |
-| `router ospf` [process id] | Enables OSPF routing and enters router configuration mode | Global Configuration Mode |
-| `network` [network address] [wildcard mask] [area id] | Advertises a network for OSPF | Router Configuration Mode |
+|---------|-------------|------|
+| `interface [interface id].[subinterface id]` | Create a subinterface | `config` |
+| `description [description]` | Gives the subinterface a description | `config-if` |
+| `encapsulation dot1q [vlan id]` | Configures the subinterface to respond to 802.1Q traffic | `config-if` |
+| `no encapsulation dot1q [vlan id]` | Removes the 802.1Q VLAN tagging association | `config-if` |
+| `encapsulation dot1q [vlan id] native` | Set the VLAN to something other than 1 | `config-if` |
+| `no encapsulation dot1q [vlan id] native` | Disables processing untagged (native) traffic for that VLAN | `config-if` |
+| `ip address [ip-address] [subnet-mask]` | Gives the subinterface an IPv4 address | `config-if` |
 
-# EtherChannels
+---
 
-## Configuration
+## VLAN Layer 3 Switch Configuration
+
+> When using layer 3 switches, add the default gateway IPs to the VLAN interfaces.
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | Global Configuration mode |
-| `channel-group [number] mode active` | Configures the range of interfaces to a LACP EhterChannel (port initiates negotiations with other ports) | Interface Configuration Mode |
-| `channel-group [number] mode passive` | Configures the range of interfaces to a LACP EhterChannel (port responds to LACP packets) | Interface Configuration Mode |
-| `channel-group [number] mode auto` | Configures the range of interfaces to a PAgP EhterChannel (port initiates negotiations with other ports) | Interface Configuration Mode |
-| `channel-group [number] mode desirable` | Configures the range of interfaces to a PAgP EhterChannel (port responds to PAgP packets) | Interface Configuration Mode |
-| `channel-group [number] mode on` | Configures the range of interfaces to an EtherChannel (both sides need to be set to on to work) | Interface Configuration Mode |
-| `interface port-channel [number]` | Configuration of the port channel | Global Configuration Mode |
-| `switchport mode trunk` | Set the port to permanent trunking mode | Interface Configuration Mode |
-| `switchport trunk allowed vlan` [vlan list] | Specify the list of VLANs to be allowed on the trunk link | Interface Configuration Mode |
+|---------|-------------|------|
+| `ip routing` | Globally enables layer 3 routing on the switch | `config` |
+| `no switchport` | Converts a layer 2 port to a layer 3 routed port | `config-if` |
+| `switchport trunk encapsulation dot1q` | Command needed before a port can be set to trunk mode | `config-if` |
 
-## Troubleshooting
+---
+
+## VLAN Troubleshooting
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `show interfaces port-channel` | Displays the general status of the port channel interface | Privileged EXEC Mode |
-| `show etherchannel summary` | Displays one line of information per port channel | Privileged EXEC Mode |
-| `show etherchannel port-channel` | Displays information about a specific port channel interface | Privileged EXEC Mode |
-| `show interfaces etherchannel` | Displays information about the role of a physical member interface of the EtherChannel | Privileged EXEC Mode |
+|---------|-------------|------|
+| `show vlan brief` | Display VLAN name and its ports, one VLAN per line | `#` |
+| `show interfaces trunk` | Shows all trunk connections | `#` |
 
-# DHCPv4
+---
 
-## Enable / Disable
+## EtherChannels
 
-The DHCPv4 service is enabled by default
-
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `no service dhcp` | Disable | Global Configuration Mode |
-| `service` | Enable | Global Configuration Mode |
-
-## Configuration to use cisco router as DHCP server
+> - Speed and duplex mode must be the same on all interfaces
+> - All interfaces must be assigned to the same VLAN or set as TRUNK
+> - In a trunking EtherChannel, the allowed VLANs must be the same on all interfaces
+> - Steps: 1 — Configure a range of interfaces to a channel group, 2 — Configure the port-channel as you would a normal interface
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `ip dhcp excluded-address low-addres [high-addres]` | Exclude IPv4 addresses | Global Configuration mode |
-| `ip dhcp pool pool-name` | Creates a pool with a specified name en puts the router in DHCPv4 configuration mode | Global Configuration mode |
-| `network [network address] [subnetmask]` | Define the range of the available addresses | DHCPv4 configuration mode |
-| `default-router address [address2...address8]` | Specifies the IPv4 address of the default gateway for the DHCPv4 clients | DHCPv4 configuration mode |
-| `dns-server address [address2...address8]` | Configures the IPv4 address(es) of the DNS server(s) available to the clients | DHCPv4 configuration mode |
-| `domain-name domain` | Defines the domain name for the network pool | DHCPv4 configuration mode |
-| `lease {days [hours [minutes]] \| infinite}` | Sets the duration of the lease for the assigned IP address | DHCPv4 configuration mode |
-| `netbios-name-server address [address2...address8]` | Configures the NetBIOS WINS server(s) if required for the network | DHCPv4 configuration mode |
+|---------|-------------|------|
+| `interface range [interface name] [number] - [number]` | Configuration of a range of interfaces | `config` |
+| `channel-group [number] mode active` | Configures LACP EtherChannel (port initiates negotiations) | `config-if` |
+| `channel-group [number] mode passive` | Configures LACP EtherChannel (port responds to LACP packets) | `config-if` |
+| `channel-group [number] mode auto` | Configures PAgP EtherChannel (port responds to PAgP packets) | `config-if` |
+| `channel-group [number] mode desirable` | Configures PAgP EtherChannel (port initiates negotiations) | `config-if` |
+| `channel-group [number] mode on` | Configures EtherChannel (both sides must be set to on) | `config-if` |
+| `interface port-channel [number]` | Configuration of the port channel | `config` |
 
-## Configuration with external DHCP server
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ip helper-address [address]` | Relay DHCPv4 broadcast to the DHCPv4 server | Interface Configuration Mode (On the interface receiving the client broadcasts) |
-
-## Configuration Cisco router as a DHCPv4 Client
+## Troubleshooting EtherChannels
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `ip address dhcp` | Configures an Ethernet interface as a DHCP client | Interface Configuration Mode |
+|---------|-------------|------|
+| `show interfaces port-channel` | Displays the general status of the port channel interface | `#` |
+| `show etherchannel summary` | Displays one line of information per port channel | `#` |
+| `show etherchannel port-channel` | Displays information about a specific port channel interface | `#` |
+| `show interfaces etherchannel` | Displays information about the role of a physical member interface | `#` |
 
-## Verification
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `show running-config \| section dhcp` | Displays the DHCPv4 commands configured on the router | Privileged EXEC Mode |
-| `show ip dhcp binding` | Displays a list of all IPv4 address to MAC address bindings provided | Privileged EXEC Mode |
-| `show ip dhcp server statistics` | Displays count information regarding DHCPv4 messages sent and received | Privileged EXEC Mode |
+## Subnetting IPv4
 
-# DHCPv6
+### Subnet Quick Reference
 
-## Configuring a stateless DHCPv6 server
+| Subnets | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 |
+|---------|---|---|---|---|----|----|----|-----|-----|
+| **Hosts** | 256 | 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 |
+| **Mask** | /24 | /25 | /26 | /27 | /28 | /29 | /30 | /31 | /32 |
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ipv6 unicast-routing` | Enable IPv6 routing |
-| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool |
-| `dns-server [dns server ipv6 address]` | Option to add a DNS server |
-| `domain-name [name]` | Option to add a domain name |
-| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool |
-| `ipv6 nd other-config-flag` | Manually change the O flag from 0 to 1 |
+### Example — Divide 192.168.4.0/24 into 3 subnets
 
-## Configure a Stateless DHCPv6 client
+> 3 is not possible, so use 4 subnets with 64 hosts each (/26).
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ipv6 unicast-routing` | Enable IPv6 routing |
-| `ipv6 enable` | Create an LLA |
-| `ipv6 address autoconfig` | Configure to use SLAAC |
-| `show ipv6 interface brief` | Verify that the GUA is assigned |
-| `show ipv6 dhcp interface [interface name]` | Verify that the client router received other necessary DHCPv6 information |
+| Network ID | Subnet Mask | Host ID Range | Usable Hosts | Broadcast ID |
+|------------|-------------|---------------|--------------|--------------|
+| 192.168.4.0 | 255.255.255.192 (/26) | 192.168.4.1 – 192.168.4.62 | 62 | 192.168.4.63 |
+| 192.168.4.64 | 255.255.255.192 (/26) | 192.168.4.65 – 192.168.4.126 | 62 | 192.168.4.127 |
+| 192.168.4.128 | 255.255.255.192 (/26) | 192.168.4.129 – 192.168.4.190 | 62 | 192.168.4.191 |
+| 192.168.4.192 | 255.255.255.192 (/26) | 192.168.4.193 – 192.168.4.254 | 62 | 192.168.4.255 |
 
-## Configuring a statefull DHCPv6 server
+### VLSM Example — 4 networks needing 100, 50, 10, and 2 hosts (192.168.1.0/24)
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ipv6 unicast-routing` | Enable IPv6 routing |
-| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool |
-| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool |
-| `ipv6 nd managed-config-flag` | Manually change the M flag from 0 to 1 |
-| `ipv6 nd prefix default no-autoconfig` | Manually change the A flag from 1 to 0 |
+| Hosts Needed | Block Size | Mask | Network Range |
+|---|---|---|---|
+| 100 | 128 | /25 | 192.168.1.0 – 192.168.1.127 |
+| 50 | 64 | /26 | 192.168.1.128 – 192.168.1.191 |
+| 10 | 16 | /28 | 192.168.1.192 – 192.168.1.207 |
+| 2 | 4 | /30 | 192.168.1.208 – 192.168.1.211 |
 
-## Configuring a statefull DHCPv6 client
+### IPv6 Subnetting Example — Divide 2001:db8:abcd::/48 into 4
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ipv6 unicast-routing` | Enable IPv6 routing |
-| `ipv6 enable` | Create an LLA |
-| `ipv6 address dhcp` | Configure the router to use DHCPv6 |
-| `show ipv6 interface brief` | Verify that the GUA is assigned |
-| `show ipv6 dhcp interface [interface name]` | Verify that the client router received other necessary DHCPv6 information |
+- 2001:db8:abcd:0001::/64
+- 2001:db8:abcd:0002::/64
+- 2001:db8:abcd:0003::/64
+- 2001:db8:abcd:0004::/64
 
-## DHCPv6 Server Verification Commands
+---
+
+## DHCPv4 Server
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `show ipv6 dhcp pool` | Verify the name of the DHCPv6 pool and its parameters |
-| `show ipv6 dhcp binding` | Displays the IPv6 link-local address of the client and the global unicast address assigned bij the server |
+|---------|-------------|------|
+| `no service dhcp` | Disables DHCPv4 on the router (DHCP is enabled by default) | `#` |
+| `service dhcp` | Enables DHCPv4 on the router | `#` |
+| `ip dhcp excluded-address [low-address] [high-address]` | Excludes IP addresses (e.g. gateways, servers) | `config` |
+| `ip dhcp pool [pool-name]` | Creates a pool and enters DHCPv4 configuration mode | `config` |
+| `network [network-address] [subnetmask]` | Define the range of available addresses | `dhcp-config` |
+| `default-router [router ip address]` | Specifies the IPv4 address of the default gateway | `dhcp-config` |
+| `dns-server [address]` | Specifies the IPv4 address of the DNS server | `dhcp-config` |
+| `domain-name [domain name]` | Defines the domain name of the pool | `dhcp-config` |
+| `lease {days [hours [minutes]] \| infinite}` | Sets the duration of the lease for the assigned IP address | `dhcp-config` |
 
-## Configure a DHCPv6 Relay Agent
+---
 
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `ipv6 dhcp relay destination [DHCPv6 server address] [interface to reach the server]` | If the DHCPv6 server is located on another network than the client, then the IPv6 router can be configured as a DHCPv6 relay agent (egress interface only requiered when the next hop address is an LLA) |
+## DHCPv4 Relay Agent
 
-## Verify the DHCPv6 Relay Agent
-
-| Command | Description | Mode |
-| ---   | --- | --- |
-| `show ipv6 dhcp` | Verify that the DHCPv6 relay agent is operational |
-| `show ipv6 dhcp binding` | Verify that the DHCPv6 relay agent is operational |
-
-# FHRP
-
-## Configuration
+> Use on the interface receiving the client broadcast.
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `standby version 2` | Sets the HSRP version to 2 |
-| `standby [group] ip [address]` | Assigns the virtual IP address that clients will use as their default gateway |
-| `standby [group] priority [value]` | Sets the router's priority (default is 100) range 0 to 255; the router with the highest value becomes Active |
-| standby [group] preempt | Allows this router to forcefully take back the "Active" role if it comes online with a higher priority than the current active router |
+|---------|-------------|------|
+| `ip helper-address [address]` | Relay DHCPv4 broadcast to the DHCPv4 server | `config-if` |
 
-## Verification
+---
+
+## DHCPv4 Client
+
+> For routers or switches to request an IP address on an interface.
 
 | Command | Description | Mode |
-| ---   | --- | --- |
-| `show standby brief` | Displays a summary table of HSRP states, priorities, and virtual IPs to verify the setup |
+|---------|-------------|------|
+| `ip address dhcp` | Configures an Ethernet interface as a DHCP client | `config-if` |
+| `no shutdown` | Activate the interface | `config-if` |
 
+---
 
+## DHCPv4 Troubleshooting
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `show running-config \| section dhcp` | Displays the DHCPv4 commands configured on the router | `#` |
+| `show ip dhcp binding` | Displays a list of all IPv4 address to MAC address bindings | `#` |
+| `show ip dhcp server statistics` | Displays count information regarding DHCPv4 messages sent and received | `#` |
+
+---
+
+## DHCPv6 SLAAC
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ipv6 unicast-routing` | Enable IPv6 routing | `config` |
+
+---
+
+## DHCPv6 Server — Stateless
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ipv6 unicast-routing` | Enable IPv6 routing | `config` |
+| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool | `config` |
+| `dns-server [dns server ipv6 address]` | Option to add a DNS server | `dhcp-config` |
+| `domain-name [name]` | Option to add a domain name | `dhcp-config` |
+| `interface [interface name]` | Interface that the clients use | `config` |
+| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool | `config-if` |
+| `ipv6 nd other-config-flag` | Manually change O flag from 0 to 1 (ask DNS to DHCPv6) | `config-if` |
+
+---
+
+## DHCPv6 Server — Statefull
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ipv6 unicast-routing` | Enable IPv6 routing | `config` |
+| `ipv6 dhcp pool [pool-name]` | Define a DHCPv6 pool | `config` |
+| `address prefix [address]/[prefix]` | Define the address and prefix | `dhcp-config` |
+| `dns-server [dns server ipv6 address]` | Option to add a DNS server | `dhcp-config` |
+| `interface [interface name]` | Interface that the clients use | `config` |
+| `ipv6 dhcp server [pool-name]` | Bind the interface to the pool | `config-if` |
+| `ipv6 nd managed-config-flag` | Manually change M flag from 0 to 1 (get everything from DHCPv6) | `config-if` |
+| `ipv6 nd prefix default no-autoconfig` | Manually change A flag from 1 to 0 (disable SLAAC) | `config-if` |
+
+---
+
+## DHCPv6 Relay Agent
+
+> Use on the interface connected to the clients.
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ipv6 dhcp relay destination [DHCPv6 server address]` | Use when DHCPv6 server is on a different network than the client | `config-if` |
+| `ipv6 dhcp relay destination [DHCPv6 server address] [interface to reach server]` | Use when the next hop address is a Link-Local Address (LLA) | `config-if` |
+
+---
+
+## DHCPv6 Client
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ipv6 unicast-routing` | Enable IPv6 routing | `config` |
+| `ipv6 enable` | Create a Link-Local Address (LLA) | `config-if` |
+| `ipv6 address dhcp` | Configure the router to use Stateful DHCPv6 | `config-if` |
+| `ipv6 address autoconfig` | Configure the router to use SLAAC / Stateless | `config-if` |
+
+---
+
+## DHCPv6 Troubleshooting
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `show ipv6 interface brief` | Verify that the GUA is assigned | `#` |
+| `show ipv6 dhcp` | Verify that the DHCPv6 relay agent is operational | `#` |
+| `show ipv6 dhcp binding` | Verify that the DHCPv6 relay agent is operational | `#` |
+
+---
+
+## FHRP (HSRP)
+
+> The router interface itself also needs an IP address and subnet mask.
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `interface [interface name]` | Interface to use | `config` |
+| `standby version 2` | Sets the HSRP version to 2 | `config-if` |
+| `standby [group] ip [address]` | Assigns the virtual IP address that clients will use as their default gateway | `config-if` |
+| `standby [group] priority [value]` | Sets the router's priority (default 100, range 0–255); highest value becomes Active | `config-if` |
+| `standby [group] preempt` | Allows this router to forcefully take back the Active role if it comes online with a higher priority | `config-if` |
+| `show standby brief` | Show FHRP info | `#` |
+
+---
+
+## Factory Reset Switch
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `erase startup-config` | Delete the startup config | `#` |
+| `delete vlan.dat` | Delete the VLAN file (switches only) | `#` |
+| `reload` | Restart the device | `#` |
+
+---
+
+## CIDR / Subnet Mask Reference
+
+| CIDR | Subnet Mask | Total Hosts | Usable Hosts |
+|------|-------------|-------------|--------------|
+| /32 | 255.255.255.255 | 1 | 1 (Host/Loopback) |
+| /31 | 255.255.255.254 | 2 | 2 (Point-to-Point) |
+| /30 | 255.255.255.252 | 4 | 2 (Router-link) |
+| /29 | 255.255.255.248 | 8 | 6 |
+| /28 | 255.255.255.240 | 16 | 14 |
+| /27 | 255.255.255.224 | 32 | 30 |
+| /26 | 255.255.255.192 | 64 | 62 |
+| /25 | 255.255.255.128 | 128 | 126 |
+| /24 | 255.255.255.0 | 256 | 254 |
+| /23 | 255.255.254.0 | 512 | 510 |
+| /22 | 255.255.252.0 | 1,024 | 1,022 |
+| /21 | 255.255.248.0 | 2,048 | 2,046 |
+| /20 | 255.255.240.0 | 4,096 | 4,094 |
+| /19 | 255.255.224.0 | 8,192 | 8,190 |
+| /18 | 255.255.192.0 | 16,384 | 16,382 |
+| /17 | 255.255.128.0 | 32,768 | 32,766 |
+| /16 | 255.255.0.0 | 65,536 | 65,534 |
+| /14 | 255.252.0.0 | 262,144 | 262,140 |
+| /12 | 255.240.0.0 | 1,048,576 | 1,048,572 |
+| /10 | 255.192.0.0 | 4,194,304 | 4,194,300 |
+| /8 | 255.0.0.0 | 16,777,216 | 16,777,212 |
