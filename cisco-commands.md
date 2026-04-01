@@ -358,6 +358,15 @@
 
 ---
 
+## OSPF
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `show ip ospf neighbor` | Displays OSPF neighbor adjacencies and their states | `#` |
+| `show ip ospf database` | Displays the OSPF link-state database (LSDB) | `#` |
+
+---
+
 ## CIDR / Subnet Mask Reference
 
 | CIDR | Subnet Mask | Total Hosts | Usable Hosts |
