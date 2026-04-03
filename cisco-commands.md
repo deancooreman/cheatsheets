@@ -360,10 +360,48 @@
 
 ## OSPF
 
+> Enable OSPFv2 with `router ospf [process-id]` (range 1–65535). The process-id is locally significant — best practice is to use the same value on all OSPF routers.
+
+### Router Configuration Mode
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `router ospf [process-id]` | Enables OSPFv2 and enters router config mode | `config` |
+| `area [area-id] [options]` | Configure OSPF area parameters | `config-router` |
+| `auto-cost reference-bandwidth [bandwidth]` | Calculate interface cost according to bandwidth | `config-router` |
+| `default-information originate` | Control distribution of default route information | `config-router` |
+| `distance [value]` | Define an administrative distance | `config-router` |
+| `log-adjacency-changes` | Log changes in adjacency state | `config-router` |
+| `neighbor [ip-address]` | Specify a neighbor router | `config-router` |
+| `network [ip-address] [wildcard-mask] area [area-id]` | Enable routing on an IP network | `config-router` |
+| `no [command]` | Negate a command or set its defaults | `config-router` |
+| `passive-interface [interface]` | Suppress routing updates on an interface | `config-router` |
+| `redistribute [protocol]` | Redistribute info from another routing protocol | `config-router` |
+| `router-id [ip-address]` | Set the router-id for this OSPF process | `config-router` |
+| `auto-cost reference-bandwidth [Mbps]` | Adjust OSPF reference bandwidth for cost calculation (default 100 Mbps) | `config-router` |
+| `default-information originate` | Propagate a default static route to all OSPF neighbors | `config-router` |
+| `clear ip ospf process` | Resets all OSPF processes (preferred way to apply a new router-id) | `#` |
+| `ip ospf [process-id] area [area-id]` | Configure OSPF directly on an interface (alternative to `network`) | `config-if` |
+| `ip ospf network point-to-point` | Changes network type to point-to-point, disabling DR/BDR election | `config-if` |
+| `ip ospf priority [0-255]` | Set interface priority for DR/BDR election (0 = never DR/BDR, default 1) | `config-if` |
+| `ip ospf cost [value]` | Manually set the OSPF cost on an interface | `config-if` |
+| `ip ospf hello-interval [seconds]` | Set the OSPF Hello interval (default 10s) | `config-if` |
+| `ip ospf dead-interval [seconds]` | Set the OSPF Dead interval (default 40s) | `config-if` |
+| `no ip ospf hello-interval` | Reset Hello interval to default | `config-if` |
+| `no ip ospf dead-interval` | Reset Dead interval to default | `config-if` |
+
+### Verification
+
 | Command | Description | Mode |
 |---------|-------------|------|
 | `show ip ospf neighbor` | Displays OSPF neighbor adjacencies and their states | `#` |
 | `show ip ospf database` | Displays the OSPF link-state database (LSDB) | `#` |
+| `show ip protocols \| include Router ID` | Verify the configured router ID | `#` |
+| `show ip ospf interface [interface]` | Show OSPF interface details including network type, DR/BDR, cost, and timers | `#` |
+| `show ip ospf interface brief` | Summary of all OSPF-enabled interfaces | `#` |
+| `show ip ospf` | Show OSPF process ID, router ID, area info, and last SPF execution time | `#` |
+| `show ip interface brief` | Verify interfaces are active with correct IP addressing | `#` |
+
 
 ---
 
