@@ -405,6 +405,86 @@
 
 ---
 
+## ACL Configuration — Standard IPv4
+
+> Standard ACLs filter only on **source IPv4 address**. Place them as close to the **destination** as possible. Number range: 1–99 or 1300–1999.
+
+### Numbered Standard ACL
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `access-list [1-99 / 1300-1999] {permit \| deny} [source] [wildcard]` | Create a numbered standard ACL entry | `config` |
+| `access-list [number] remark [text]` | Add a documentation remark to the ACL | `config` |
+| `no access-list [number]` | Remove the entire numbered ACL | `config` |
+
+### Named Standard ACL
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ip access-list standard [name]` | Create a named standard ACL and enter ACL config mode | `config` |
+| `{permit \| deny} [source] [wildcard]` | Add an ACE to the named ACL | `config-std-nacl` |
+| `remark [text]` | Add a documentation remark | `config-std-nacl` |
+| `no [sequence-number]` | Delete a specific ACE by sequence number | `config-std-nacl` |
+
+### Apply ACL to Interface or VTY
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ip access-group [name/number] {in \| out}` | Apply an ACL to an interface | `config-if` |
+| `no ip access-group [name/number] {in \| out}` | Remove an ACL from an interface | `config-if` |
+| `access-class [name/number] in` | Apply a standard ACL to restrict VTY (SSH/Telnet) access | `config-line` |
+
+### Verification & Troubleshooting
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `show access-lists` | Show all ACLs with ACE match statistics | `#` |
+| `show ip interface [interface]` | Verify which ACL is applied to an interface and direction | `#` |
+| `show running-config \| section access-list` | Show all configured ACLs | `#` |
+| `clear access-list counters [name/number]` | Reset ACL match statistics counters | `#` |
+
+---
+
+## ACL Configuration — Extended IPv4
+
+> Extended ACLs filter on **source, destination, protocol, and port**. Place them as close to the **source** as possible. Number range: 100–199 or 2000–2699.
+
+### Numbered Extended ACL
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `access-list [100-199 / 2000-2699] {permit \| deny} [protocol] [src] [wildcard] [dst] [wildcard] [eq port]` | Create a numbered extended ACL entry | `config` |
+| `access-list [number] remark [text]` | Add a documentation remark | `config` |
+| `no access-list [number]` | Remove the entire numbered extended ACL | `config` |
+
+### Named Extended ACL
+
+| Command | Description | Mode |
+|---------|-------------|------|
+| `ip access-list extended [name]` | Create a named extended ACL and enter ACL config mode | `config` |
+| `{permit \| deny} [protocol] [src] [wildcard] [dst] [wildcard] [eq port]` | Add an ACE to the named extended ACL | `config-ext-nacl` |
+| `remark [text]` | Add a documentation remark | `config-ext-nacl` |
+| `no [sequence-number]` | Delete a specific ACE by sequence number | `config-ext-nacl` |
+
+### Commonly Used Protocols & Ports
+
+| Protocol / Keyword | Port | Description |
+|--------------------|------|-------------|
+| `tcp` / `udp` | — | Specify TCP or UDP traffic |
+| `icmp` | — | ICMP traffic (e.g. ping) |
+| `eq www` / `eq 80` | 80 | HTTP |
+| `eq 443` | 443 | HTTPS |
+| `eq 22` | 22 | SSH |
+| `eq ftp` / `eq 21` | 21 | FTP control |
+| `eq ftp-data` / `eq 20` | 20 | FTP data |
+| `eq telnet` / `eq 23` | 23 | Telnet |
+| `eq 53` | 53 | DNS |
+| `established` | — | Permit returning TCP traffic (ACK/RST flag set) |
+| `host [ip]` | — | Matches one specific IP address (= wildcard 0.0.0.0) |
+| `any` | — | Matches any IP address (= wildcard 255.255.255.255) |
+
+---
+
 ## CIDR / Subnet Mask Reference
 
 | CIDR | Subnet Mask | Total Hosts | Usable Hosts |
