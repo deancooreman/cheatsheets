@@ -428,6 +428,17 @@
 | `remark [text]` | Add a documentation remark | `config-std-nacl` |
 | `no [sequence-number]` | Delete a specific ACE by sequence number | `config-std-nacl` |
 
+#### Example — Named Standard ACL with specific host permits and a final deny
+
+```
+R1(config)# ip access-list standard File_Server_Restrictions
+R1(config-std-nacl)# permit host 192.168.20.4
+R1(config-std-nacl)# permit host 192.168.100.100
+R1(config-std-nacl)# deny any
+```
+
+> `host [ip]` is shorthand for `[ip] 0.0.0.0` (matches exactly one IP). The implicit `deny any` at the end of every ACL means the last line is optional but good practice for clarity and logging.
+
 ### Apply ACL to Interface or VTY
 
 | Command | Description | Mode |
