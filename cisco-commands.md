@@ -414,6 +414,7 @@
 | Command | Description | Mode |
 |---------|-------------|------|
 | `access-list [1-99 / 1300-1999] {permit \| deny} [source] [wildcard]` | Create a numbered standard ACL entry | `config` |
+| `access-list [number] permit any` | Permit all source addresses (equivalent to `permit 0.0.0.0 255.255.255.255`) | `config` |
 | `access-list [number] remark [text]` | Add a documentation remark to the ACL | `config` |
 | `no access-list [number]` | Remove the entire numbered ACL | `config` |
 
@@ -423,6 +424,7 @@
 |---------|-------------|------|
 | `ip access-list standard [name]` | Create a named standard ACL and enter ACL config mode | `config` |
 | `{permit \| deny} [source] [wildcard]` | Add an ACE to the named ACL | `config-std-nacl` |
+| `permit any` | Permit all source addresses (equivalent to `permit 0.0.0.0 255.255.255.255`) | `config-std-nacl` |
 | `remark [text]` | Add a documentation remark | `config-std-nacl` |
 | `no [sequence-number]` | Delete a specific ACE by sequence number | `config-std-nacl` |
 
@@ -454,6 +456,7 @@
 | Command | Description | Mode |
 |---------|-------------|------|
 | `access-list [100-199 / 2000-2699] {permit \| deny} [protocol] [src] [wildcard] [dst] [wildcard] [eq port]` | Create a numbered extended ACL entry | `config` |
+| `access-list [number] permit ip any any` | Permit all IP traffic from any source to any destination | `config` |
 | `access-list [number] remark [text]` | Add a documentation remark | `config` |
 | `no access-list [number]` | Remove the entire numbered extended ACL | `config` |
 
@@ -463,6 +466,7 @@
 |---------|-------------|------|
 | `ip access-list extended [name]` | Create a named extended ACL and enter ACL config mode | `config` |
 | `{permit \| deny} [protocol] [src] [wildcard] [dst] [wildcard] [eq port]` | Add an ACE to the named extended ACL | `config-ext-nacl` |
+| `permit ip any any` | Permit all IP traffic from any source to any destination | `config-ext-nacl` |
 | `remark [text]` | Add a documentation remark | `config-ext-nacl` |
 | `no [sequence-number]` | Delete a specific ACE by sequence number | `config-ext-nacl` |
 
