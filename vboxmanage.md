@@ -1,6 +1,6 @@
 # VBoxManage Cheatsheet
 
-## 1. General & Information
+## General & Information
 
 | Command | Description |
 |---------|-------------|
@@ -12,7 +12,7 @@
 
 ---
 
-## 2. VM Lifecycle Management
+## VM Lifecycle Management
 
 | Command | Description | Mode/Type |
 |---------|-------------|-----------|
@@ -26,7 +26,7 @@
 
 ---
 
-## 3. Hardware Configuration
+## Hardware Configuration
 
 | Command | Description |
 |---------|-------------|
@@ -37,7 +37,7 @@
 
 ---
 
-## 4. Storage & Media
+## Storage & Media
 
 | Command | Description |
 |---------|-------------|
@@ -48,7 +48,7 @@
 
 ---
 
-## 5. Networking
+## Networking
 
 | Command | Description |
 |---------|-------------|
@@ -59,7 +59,7 @@
 
 ---
 
-## 6. Snapshots
+## Snapshots
 
 | Command | Description |
 |---------|-------------|
@@ -70,7 +70,7 @@
 
 ---
 
-## 7. Guest Control
+## Guest Control
 
 | Command | Description |
 |---------|-------------|
